@@ -100,6 +100,7 @@ window.require.register("application", function(exports, require, module) {
 
       this.on("initialize:after", function(options) {
         Backbone.history.start();
+        _this.bindEvents();
         return typeof Object.freeze === "function" ? Object.freeze(_this) : void 0;
       });
       this.addInitializer(function(options) {
@@ -718,7 +719,11 @@ window.require.register("views/templates/appLayout", function(exports, require, 
     
 
 
+<<<<<<< HEAD
+    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"navigator.device.exitApp(); \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"span6 offset2\">\n        <div id=\"content\" class=\"container\"></div>\n    </div>\n</div>\n\n";
+=======
     return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a  href=\"#\"><img  src=\"http://erez-sb.comze.com/css/icon-36-ldpi.png\" style=\"max-height: 36px; max-width: 36px;\" ></img></a>\n            <a class=\"btn \" href=\"#user\">UserView</a>\n            <a class=\"btn \" href=\"#users\">UsersView</a>\n            <a class=\"btn \" href=\"#messageBoard\">messageView</a>\n            <a class=\"btn \" href=\"#messagesBoard\">messagesView</a>\n            <a onclick=\"navigator.device.exitApp();\" ><img  src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"max-height: 36px; max-width: 36px;\" ></img></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"span6 offset2\">\n        <div id=\"content\" class=\"container\"></div>\n    </div>\n</div>\n\n";
+>>>>>>> b2db07ad19b2a38eb16597b17865b749437ed8c8
     });
 });
 window.require.register("views/templates/home", function(exports, require, module) {
@@ -728,7 +733,11 @@ window.require.register("views/templates/home", function(exports, require, modul
     
 
 
+<<<<<<< HEAD
+    return "<div class=\"row\">\n    <div class=\"span12\">\n\n\n        <a href=\"#user\"> <img src=\"http://b.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/male_user.png\"\n                              width=\"90\"></a>\n        <a href=\"#users\"> <img src=\"img/ico/Android-Users-48.png\" style=\"max-height: 48px; max-width: 48px;\" width=\"90\"></a>\n        <a href=\"#messageBoard\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/news.png\"\n                ></a>\n        <a href=\"#messagesBoard\"><img src=\"img/ico/Android-Messages-48.png\" style=\"max-height: 48px; max-width: 48px;\"\n                ></a>\n        <!--<a href=\"#settings\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/settings.png\"-->\n        <!--width=\"90\"></a>-->\n        <!--<a href=\"#survey\"><img src=\"img/ico/Android-Survey-48.png\" ></a>-->\n        <!--<a href=\"#calender\"><img src=\"img/ico/Android-Calendar-48.png\" ></a>-->\n\n\n        <a href=\"#newmessageBoard\" class=\"btn newMessage\">NewMSG</a>\n\n    </div>\n</div>\n\n";
+=======
     return "    \n\n<div class=\"row\">\n  <div class=\"span12\">\n\n\n  		<a href=\"#user\">	<img src=\"http://b.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/male_user.png\"\n								width=\"90\"></a>\n			<a href=\"#users\">	<img src=\"http://b.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/id_card.png\"\n								width=\"90\"></a>\n			<a href=\"#messageBoard\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/news.png\"\n								width=\"90\"></a>\n			<a href=\"#messagesBoard\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/list.png\"\n								width=\"90\"></a>\n<!--<a href=\"#settings\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/settings.png\"-->\n								<!--width=\"90\"></a>-->\n			<!--<a href=\"#survey\"><img src=\"http://thumb11.shutterstock.com/photos/thumb_large/52627/52627,1331469942,2.jpg\"-->\n											<!--width=\"90\"></a>-->\n\n			<a  href=\"#newmessageBoard\" class=\"btn newMessage\">NewMSG</a>\n\n  </div>\n</div>\n\n";
+>>>>>>> b2db07ad19b2a38eb16597b17865b749437ed8c8
     });
 });
 window.require.register("views/templates/messageBoard", function(exports, require, module) {
@@ -936,11 +945,11 @@ window.require.register("views/templates/user", function(exports, require, modul
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" >\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">ID</span>\n        <input type=\"messageText\" class=\"userID input-mini\" value=\"";
+      + "\">\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">ID</span>\n        <input type=\"messageText\" class=\"userID input-mini\" value=\"";
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" disabled>\n        <span class=\"add-on\">Since</span>\n        <input type=\"messageText\" class=\"dateOfIssue input-small\"\n               value=\"";
+      + "\" disabled>\n    </div>\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Since</span>\n        <input type=\"messageText\" class=\"dateOfIssue input-small\"\n               value=\"";
     stack1 = helpers['if'].call(depth0, depth0.dateOfIssue, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
     if(stack1 || stack1 === 0) { buffer += stack1; }
     buffer += "\" disabled>\n    </div>\n    <!--UserName-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">UserName</span>\n        <input type=\"messageText\" class=\"username input-xlarge\" value=\"";
@@ -963,7 +972,7 @@ window.require.register("views/templates/user", function(exports, require, modul
     if (stack1 = helpers.membership) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.membership; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" placeholder=\"Membership\" disabled>\n    </div>\n</a><div>   <br/></div>\n<!--<a class=\"btn\" href=\"#updateProfile/";
+      + "\" placeholder=\"Membership\" disabled>\n    </div>\n</a>\n<div><br/></div>\n<!--<a class=\"btn\" href=\"#updateProfile/";
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)

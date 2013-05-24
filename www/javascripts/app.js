@@ -816,7 +816,7 @@ window.require.register("views/templates/messagesBoard", function(exports, requi
   function program6(depth0,data) {
     
     var buffer = "", stack1;
-    buffer += "\n		<div class=\"well span6\">\n	";
+    buffer += "\n  	<div class=\"well span6\">\n	";
     stack1 = helpers.each.call(depth0, depth0, {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
     if(stack1 || stack1 === 0) { buffer += stack1; }
     buffer += "\n	</div>\n";

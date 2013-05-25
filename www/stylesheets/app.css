@@ -7138,6 +7138,7 @@ body {
 /*rtl border on the input addon*/
 .input-prepend .add-on:first-child,
 .input-prepend .btn:first-child {
+  min-width: 100px;
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
@@ -7188,4 +7189,9 @@ body {
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+input,
+textarea,
+.uneditable-input {
+  width: 80%;
 }

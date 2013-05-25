@@ -140,7 +140,7 @@ window.require.register("initialize", function(exports, require, module) {
   
 });
 window.require.register("lib/router", function(exports, require, module) {
-  var HomeView, Message, MessageView, Messages, MessagesView, NewMessage, NewMessageView, Router, User, UserView, Users, UsersView, application, updateProfileView, _ref,
+  var HomeView, Login, LoginView, Message, MessageView, Messages, MessagesView, NewMessage, NewMessageView, NewUser, NewUserView, Router, User, UserView, Users, UsersView, application, updateProfileView, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -149,7 +149,11 @@ window.require.register("lib/router", function(exports, require, module) {
 
   HomeView = require('views/HomeView');
 
+  LoginView = require('views/LoginView');
+
   UserView = require('views/UserView');
+
+  NewUserView = require('views/NewUserView');
 
   UsersView = require('views/UsersView');
 
@@ -171,6 +175,10 @@ window.require.register("lib/router", function(exports, require, module) {
 
   Messages = require('models/messages');
 
+  Login = require('models/login');
+
+  NewUser = require('models/newUser');
+
   module.exports = Router = (function(_super) {
     __extends(Router, _super);
 
@@ -182,6 +190,8 @@ window.require.register("lib/router", function(exports, require, module) {
       this.userViewDefault = __bind(this.userViewDefault, this);
       this.messagesViewDefault = __bind(this.messagesViewDefault, this);
       this.newMessageViewDefault = __bind(this.newMessageViewDefault, this);
+      this.loginView = __bind(this.loginView, this);
+      this.newUserView = __bind(this.newUserView, this);
       this.messageViewDefault = __bind(this.messageViewDefault, this);
       this.home = __bind(this.home, this);    _ref = Router.__super__.constructor.apply(this, arguments);
       return _ref;
@@ -196,7 +206,9 @@ window.require.register("lib/router", function(exports, require, module) {
       'users': 'usersViewDefault',
       'user/:id': 'userView',
       'updateProfile/:id': 'updateProfile',
-      'messageBoard/:id': 'messageViewById'
+      'messageBoard/:id': 'messageViewById',
+      'login': 'loginView',
+      'newuser': 'newUserView'
     };
 
     Router.prototype.home = function() {
@@ -210,6 +222,22 @@ window.require.register("lib/router", function(exports, require, module) {
       var view;
 
       view = new MessageView();
+      return application.layout.content.show(view);
+    };
+
+    Router.prototype.newUserView = function() {
+      var view;
+
+      view = new NewUserView();
+      return application.layout.content.show(view);
+    };
+
+    Router.prototype.loginView = function() {
+      var view;
+
+      view = new LoginView({
+        model: new Login()
+      });
       return application.layout.content.show(view);
     };
 
@@ -353,6 +381,28 @@ window.require.register("models/collection", function(exports, require, module) 
   })(Backbone.Collection);
   
 });
+window.require.register("models/login", function(exports, require, module) {
+  var Login, Model, _ref,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  Model = require('./model');
+
+  module.exports = Login = (function(_super) {
+    __extends(Login, _super);
+
+    function Login() {
+      _ref = Login.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    Login.prototype.url = "http://localhost:8081/api/users/login";
+
+    return Login;
+
+  })(Model);
+  
+});
 window.require.register("models/message", function(exports, require, module) {
   var Massage, Model, _ref,
     __hasProp = {}.hasOwnProperty,
@@ -437,6 +487,28 @@ window.require.register("models/newMessage", function(exports, require, module) 
     NewMassage.prototype.urlRoot = "http://localhost:8081/api/boardMessage";
 
     return NewMassage;
+
+  })(Model);
+  
+});
+window.require.register("models/newUser", function(exports, require, module) {
+  var Model, NewUser, _ref,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  Model = require('./model');
+
+  module.exports = NewUser = (function(_super) {
+    __extends(NewUser, _super);
+
+    function NewUser() {
+      _ref = NewUser.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    NewUser.prototype.urlRoot = "http://localhost:8081/api/users";
+
+    return NewUser;
 
   })(Model);
   
@@ -537,6 +609,63 @@ window.require.register("views/HomeView", function(exports, require, module) {
     HomeView.prototype.template = template;
 
     return HomeView;
+
+  })(Backbone.Marionette.ItemView);
+  
+});
+window.require.register("views/LoginView", function(exports, require, module) {
+  var LoginView, User, _ref,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  User = require('models/user');
+
+  module.exports = LoginView = (function(_super) {
+    __extends(LoginView, _super);
+
+    function LoginView() {
+      this.login = __bind(this.login, this);
+      this.logout = __bind(this.logout, this);    _ref = LoginView.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    LoginView.prototype.template = require('./templates/login');
+
+    LoginView.prototype.events = {
+      "click .loginButton": 'login',
+      "click .logoutButton": 'logout'
+    };
+
+    LoginView.prototype.logout = function() {
+      $.get("/api/users/logout");
+      console.log("User Session Cleared");
+      return document.getElementById('sessionUsername').innerHTML = "Guest";
+    };
+
+    LoginView.prototype.login = function() {
+      var _this = this;
+
+      return $.ajax({
+        url: "/api/users/login",
+        type: "POST",
+        contentType: "application/x-www-form-urlencoded",
+        data: {
+          username: $("#username").val(),
+          password: $("#password").val()
+        },
+        success: function(data) {
+          console.log("Logged in as " + $("#username").val() + " successfully");
+          return document.getElementById('sessionUsername').innerHTML = $("#username").val();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log("Failed logging in " + $("#username").val() + ": " + errorThrown);
+          return document.getElementById('sessionUsername').innerHTML = "Guest";
+        }
+      });
+    };
+
+    return LoginView;
 
   })(Backbone.Marionette.ItemView);
   
@@ -653,6 +782,46 @@ window.require.register("views/NewMessageView", function(exports, require, modul
   })(Backbone.Marionette.ItemView);
   
 });
+window.require.register("views/NewUserView", function(exports, require, module) {
+  var NewUserView, User, _ref,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  User = require('models/user');
+
+  module.exports = NewUserView = (function(_super) {
+    __extends(NewUserView, _super);
+
+    function NewUserView() {
+      this.register = __bind(this.register, this);    _ref = NewUserView.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    NewUserView.prototype.template = require('./templates/newUser');
+
+    NewUserView.prototype.events = {
+      "click .register": 'register'
+    };
+
+    NewUserView.prototype.register = function() {
+      var user;
+
+      user = new User;
+      user.set("firstName", this.$("input.firstName").val());
+      user.set("lastName", this.$("input.lastName").val());
+      user.set("email", this.$("input.email").val());
+      user.set("password", this.$("input.password").val());
+      user.set("username", this.$("input.username").val());
+      console.log(user);
+      return user.save();
+    };
+
+    return NewUserView;
+
+  })(Backbone.Marionette.ItemView);
+  
+});
 window.require.register("views/UserView", function(exports, require, module) {
   var UserView, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -733,7 +902,7 @@ window.require.register("views/templates/appLayout", function(exports, require, 
     
 
 
-    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"javascript:navigator.app.exitApp(); \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row-fluid\">\n        <div id=\"content\" class=\"container\"></div>\n</div>\n\n";
+    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div id=\"appNavBar\"class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"javascript:navigator.app.exitApp(); \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n  					<p style=\"text-align: center\">שלום : <b id='sessionUsername'></b> </p>\n        </div>\n    </div>\n</div>\n\n<div class=\"row-fluid\">\n        <div id=\"content\" class=\"container\"></div>\n</div>\n\n";
     });
 });
 window.require.register("views/templates/home", function(exports, require, module) {
@@ -743,7 +912,17 @@ window.require.register("views/templates/home", function(exports, require, modul
     
 
 
-    return "<div class=\"row\">\n    <div class=\"span12\">\n\n\n        <a href=\"#user\"> <img src=\"http://b.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/male_user.png\"\n                              width=\"90\"></a>\n        <a href=\"#users\"> <img src=\"img/ico/Android-Users-48.png\" style=\"max-height: 48px; max-width: 48px;\" width=\"90\"></a>\n        <a href=\"#messageBoard\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/news.png\"\n                ></a>\n        <a href=\"#messagesBoard\"><img src=\"img/ico/Android-Messages-48.png\" style=\"max-height: 48px; max-width: 48px;\"\n                ></a>\n        <!--<a href=\"#settings\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/settings.png\"-->\n        <!--width=\"90\"></a>-->\n        <!--<a href=\"#survey\"><img src=\"img/ico/Android-Survey-48.png\" ></a>-->\n        <!--<a href=\"#calender\"><img src=\"img/ico/Android-Calendar-48.png\" ></a>-->\n\n\n        <a href=\"#newmessageBoard\" class=\"btn newMessage\">NewMSG</a>\n\n    </div>\n</div>\n\n";
+    return "<div class=\"row\">\n    <div class=\"span12\">\n\n\n        <a href=\"#user\"> <img src=\"http://b.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/male_user.png\"\n                              width=\"90\"></a>\n        <a href=\"#users\"> <img src=\"img/ico/Android-Users-48.png\" style=\"max-height: 48px; max-width: 48px;\" width=\"90\"></a>\n        <a href=\"#messageBoard\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/news.png\"\n                ></a>\n        <a href=\"#messagesBoard\"><img src=\"img/ico/Android-Messages-48.png\" style=\"max-height: 48px; max-width: 48px;\"\n                ></a>\n        <!--<a href=\"#settings\"><img src=\"http://c.dryicons.com/images/icon_sets/grey_moonlight_icons/png/128x128/settings.png\"-->\n        <!--width=\"90\"></a>-->\n        <!--<a href=\"#survey\"><img src=\"img/ico/Android-Survey-48.png\" ></a>-->\n        <!--<a href=\"#calender\"><img src=\"img/ico/Android-Calendar-48.png\" ></a>-->\n\n				<a href=\"#login\" class=\"btn login\">login</a>\n				<a href=\"#newuser\" class=\"btn newuser\">New User</a>\n        <a href=\"#newmessageBoard\" class=\"btn newMessage\">NewMSG</a>\n\n    </div>\n</div>\n\n";
+    });
+});
+window.require.register("views/templates/login", function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+  helpers = helpers || Handlebars.helpers; data = data || {};
+    
+
+
+    return "<div class=\"well span12\">\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">שם משתמש</span>\n        <input id=\"username\" type=\"text\" class=\"username\" value=\"\">\n    </div>\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">סיסמה</span>\n        <input id=\"password\" type=\"password\" class=\"password\" value=\"\">\n    </div>\n    <div style=\"text-align: center\">\n        <button class=\"btn logoutButton\" onclick=\"$.get( '/api/users/logout')\">Logout</button>\n        <button class=\"btn loginButton\">Login</button>\n        <br><br>\n        <a class=\" forgetPasswordButton\">Forgot my password</a><!--todo forgot my password-->\n    </div>\n</div>";
     });
 });
 window.require.register("views/templates/messageBoard", function(exports, require, module) {
@@ -831,7 +1010,7 @@ window.require.register("views/templates/messagesBoard", function(exports, requi
   function program6(depth0,data) {
     
     var buffer = "", stack1;
-    buffer += "\n  	<div class=\"well span6\">\n	";
+    buffer += "\n		<div class=\"well span6\">\n	";
     stack1 = helpers.each.call(depth0, depth0, {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
     if(stack1 || stack1 === 0) { buffer += stack1; }
     buffer += "\n	</div>\n";
@@ -888,6 +1067,16 @@ window.require.register("views/templates/newMessageBoard", function(exports, req
 
 
     return "<h2>Message View</h2>\n<div class=\"well span12\">\n    <!--subject-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">subject</span>\n        <input type=\"text\" class=\"subject\" value=\"\">\n    </div>\n    <!-- author.username -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">author.id</span>\n        <input type=\"text\" class=\"authorId\" value=\"\" placeholder=\"author.id\"\n               required=\"required\">\n    </div>\n    <!--message-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Message</span>\n        <textarea type=\"text\" name=\"message\" class=\"messageText\" placeholder=\"Enter Your Message Here ...\"\n                ></textarea>\n    </div>\n    <button class=\"btn save\">Save</button>\n</div>";
+    });
+});
+window.require.register("views/templates/newUser", function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+  helpers = helpers || Handlebars.helpers; data = data || {};
+    
+
+
+    return "<!--<h2>New User</h2>-->\n<div class=\"well span12\">\n    <!--UserName-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">UserName</span>\n        <input type=\"text\" class=\"username\" value=\"\" >\n    </div>\n    <!-- E-mail -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">E-Mail</span>\n        <input type=\"email\" class=\"email\" value=\"\" placeholder=\"Email\" required=\"required\" >\n    </div>\n    <!-- First Name -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">FirstName</span>\n        <input type=\"text\" class=\"firstName\" value=\"\" placeholder=\"First name\" >\n    </div>\n    <!-- Last Name -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">LastName</span>\n        <input type=\"text\" class=\"lastName\" value=\"\" placeholder=\"Last name\" >\n    </div>\n    <!-- Membership Type-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Membership</span>\n        <input type=\"text\" class=\"membership\" value=\"\" placeholder=\"Membership\" >\n    </div>\n		<div class=\"input-prepend\">\n      <span class=\"add-on\">password</span>\n      <input id=\"password\" type=\"password\" class=\"password\" value=\"\">\n  </div>\n		<div class=\"input-prepend\">\n      <span class=\"add-on\">password Confirm</span>\n      <input id=\"passwordConfirm\" type=\"password\" class=\"password\" value=\"\">\n  </div>\n		<button class=\"btn clear\">Clear</button>\n  <button class=\"btn register\">Register</button>\n</div>\n";
     });
 });
 window.require.register("views/templates/updateProfile", function(exports, require, module) {

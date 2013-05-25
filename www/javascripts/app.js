@@ -776,7 +776,7 @@ window.require.register("views/templates/messageBoard", function(exports, requir
     buffer += escapeExpression(stack1)
       + "\" readonly=\"true\"\n               ondblclick=\"this.readOnly=false\">\n    </div>\n    <!-- author.username -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">מחבר ההודעה</span>\n        <input type=\"text\" class=\"author.username \" value=\""
       + escapeExpression(((stack1 = ((stack1 = depth0.author),stack1 == null || stack1 === false ? stack1 : stack1.username)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-      + "\" placeholder=\"author.username\"\n               required=\"required\" disabled>\n    </div>\n    <!--message-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">הודעה</span>\n        <textarea name=\"message\" class=\"messageText\" placeholder=\"Enter Your Message Here ...\"\n                  disabled>";
+      + "\" placeholder=\"author.username\"\n               required=\"required\" disabled>\n    </div>\n    <!--message-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">הודעה</span>\n        <textarea type =\"text\" name=\"message\" class=\"messageText\" placeholder=\"Enter Your Message Here ...\"\n                  disabled>";
     if (stack2 = helpers.messageText) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
     else { stack2 = depth0.messageText; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
     buffer += escapeExpression(stack2)

@@ -542,10 +542,12 @@ window.require.register("views/HomeView", function(exports, require, module) {
   
 });
 window.require.register("views/MessageView", function(exports, require, module) {
-  var MessageView, _ref,
+  var MessageView, User, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  User = require('models/user');
 
   module.exports = MessageView = (function(_super) {
     __extends(MessageView, _super);
@@ -562,7 +564,20 @@ window.require.register("views/MessageView", function(exports, require, module) 
     };
 
     MessageView.prototype.save = function() {
-      return this.model.save();
+      var user, userId,
+        _this = this;
+
+      userId = this.$(".authorId").val();
+      user = new User({
+        id: userId
+      });
+      return user.fetch({
+        success: function() {}
+      }, this.model.set({
+        author: user,
+        subject: this.$(".subject").val(),
+        messageText: this.$(".messageText").val()
+      }), console.log(this.model), this.model.save());
     };
 
     return MessageView;
@@ -718,7 +733,7 @@ window.require.register("views/templates/appLayout", function(exports, require, 
     
 
 
-    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"javascript:navigator.app.exitApp() \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row-fluid\">\n        <div id=\"content\" class=\"container\"></div>\n</div>\n\n";
+    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"javascript:navigator.app.exitApp(); \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row-fluid\">\n        <div id=\"content\" class=\"container\"></div>\n</div>\n\n";
     });
 });
 window.require.register("views/templates/home", function(exports, require, module) {
@@ -744,28 +759,28 @@ window.require.register("views/templates/messageBoard", function(exports, requir
     return escapeExpression(((stack1 = helpers.date),stack1 ? stack1.call(depth0, depth0.dateOfIssue, options) : helperMissing.call(depth0, "date", depth0.dateOfIssue, options)));
     }
 
-    buffer += "<a class=\"well btn\"  href=\"#messageBoard/";
+    buffer += "<div class=\"well span12\" onclick=\"window.location='#messageBoard/";
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" >\n<div class=\"input-prepend\">\n    <span class=\"add-on\">ID</span>\n    <input type=\"messageText\" class=\"userID input-mini\" value=\"";
+      + "'\">\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">מספר הודעה</span>\n        <input type=\"text\" class=\"userID\" value=\"";
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" disabled>\n    <span class=\"add-on\">Since</span>\n    <input type=\"messageText\" class=\"dateOfIssue input-small\"\n           value=\"";
+      + "\" disabled>\n    </div>\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">תאריך יצירה</span>\n        <input type=\"text\" class=\"dateOfIssue \"\n               value=\"";
     stack1 = helpers['if'].call(depth0, depth0.dateOfIssue, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
     if(stack1 || stack1 === 0) { buffer += stack1; }
-    buffer += "\" disabled>\n</div>\n<!--subject-->\n<div class=\"input-prepend\">\n    <span class=\"add-on\">subject</span>\n    <input type=\"messageText\" class=\"subject input-xlarge\" value=\"";
+    buffer += "\" disabled>\n    </div>\n    <!--subject-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">נושא</span>\n        <input type=\"text\" class=\"subject \" value=\"";
     if (stack1 = helpers.subject) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.subject; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" readonly=\"true\" ondblclick=\"this.readOnly=false\">\n</div>\n<!-- author.username -->\n<div class=\"input-prepend\">\n    <span class=\"add-on\">author.username</span>\n    <input type=\"messageText\" class=\"author.username input-xlarge\" value=\""
+      + "\" readonly=\"true\"\n               ondblclick=\"this.readOnly=false\">\n    </div>\n    <!-- author.username -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">מחבר ההודעה</span>\n        <input type=\"text\" class=\"author.username \" value=\""
       + escapeExpression(((stack1 = ((stack1 = depth0.author),stack1 == null || stack1 === false ? stack1 : stack1.username)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-      + "\" placeholder=\"author.username\"\n           required=\"required\" disabled>\n</div>\n<!--message-->\n<div class=\"input-prepend\">\n    <span class=\"add-on\">Message</span>\n    <textarea name=\"message\" class=\"messageText input-xlarge\" placeholder=\"Enter Your Message Here ...\"\n              disabled>";
+      + "\" placeholder=\"author.username\"\n               required=\"required\" disabled>\n    </div>\n    <!--message-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">הודעה</span>\n        <textarea name=\"message\" class=\"messageText\" placeholder=\"Enter Your Message Here ...\"\n                  disabled>";
     if (stack2 = helpers.messageText) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
     else { stack2 = depth0.messageText; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
     buffer += escapeExpression(stack2)
-      + "</textarea>\n</div>\n<button class=\"btn save\">Save</button>\n</a><div>   <br/></div>";
+      + "</textarea>\n    </div>\n    <button class=\"btn save\">שמור</button>\n</div>";
     return buffer;
     });
 });
@@ -872,7 +887,7 @@ window.require.register("views/templates/newMessageBoard", function(exports, req
     
 
 
-    return "<h2>Message View</h2>\n\n<!--subject-->\n<div class=\"input-prepend\">\n    <span class=\"add-on\">subject</span>\n    <input type=\"messageText\" class=\"subject input-xlarge\" value=\"\" >\n</div>\n<!-- author.username -->\n<div class=\"input-prepend\">\n    <span class=\"add-on\">author.id</span>\n    <input type=\"messageText\" class=\"authorId input-xlarge\" value=\"\" placeholder=\"author.id\"\n           required=\"required\" >\n</div>\n<!--message-->\n<div class=\"input-prepend\">\n    <span class=\"add-on\">Message</span>\n    <textarea name=\"message\" class=\"messageText input-xlarge\" placeholder=\"Enter Your Message Here ...\"\n              ></textarea>\n</div>\n<button class=\"btn save\">Save</button>";
+    return "<h2>Message View</h2>\n<div class=\"well span12\">\n    <!--subject-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">subject</span>\n        <input type=\"text\" class=\"subject\" value=\"\">\n    </div>\n    <!-- author.username -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">author.id</span>\n        <input type=\"text\" class=\"authorId\" value=\"\" placeholder=\"author.id\"\n               required=\"required\">\n    </div>\n    <!--message-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Message</span>\n        <textarea type=\"text\" name=\"message\" class=\"messageText\" placeholder=\"Enter Your Message Here ...\"\n                ></textarea>\n    </div>\n    <button class=\"btn save\">Save</button>\n</div>";
     });
 });
 window.require.register("views/templates/updateProfile", function(exports, require, module) {

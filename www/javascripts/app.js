@@ -718,7 +718,7 @@ window.require.register("views/templates/appLayout", function(exports, require, 
     
 
 
-    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"navigator.device.exitApp(); \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"span6 offset2\">\n        <div id=\"content\" class=\"container\"></div>\n    </div>\n</div>\n\n";
+    return "<div class=\"navbar navbar-fixed-top\">\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <a style=\"float: left\" href=\"#\"><img src=\"img/logo.png\"\n                                                 style=\"max-height: 48px; max-width: 48px;\"></a>\n            <!-- todo Backbone.history.start() if pressed-->\n            <!--<a class=\"btn \" href=\"#user\">UserView</a>-->\n            <!--<a class=\"btn \" href=\"#users\">UsersView</a>-->\n            <!--<a class=\"btn \" href=\"#messageBoard\">messageView</a>-->\n            <!--<a class=\"btn \" href=\"#messagesBoard\">messagesView</a>-->\n            <a style=\"cursor:pointer; float: right\" onclick=\"navigator.device.exitApp(); \"><img\n                    src=\"http://cdn1.iconfinder.com/data/icons/gis/quit.png\" style=\"height: 48px; width: 48px;\"></a>\n        </div>\n    </div>\n</div>\n\n<div class=\"row-fluid\">\n        <div id=\"content\" class=\"container\"></div>\n</div>\n\n";
     });
 });
 window.require.register("views/templates/home", function(exports, require, module) {
@@ -932,50 +932,38 @@ window.require.register("views/templates/user", function(exports, require, modul
     return escapeExpression(((stack1 = helpers.date),stack1 ? stack1.call(depth0, depth0.dateOfIssue, options) : helperMissing.call(depth0, "date", depth0.dateOfIssue, options)));
     }
 
-    buffer += "<!--<h2>User Profile</h2>-->\n<a class=\"well btn\" href=\"#updateProfile/";
+    buffer += "<!--<h2>User Profile</h2>-->\n<div class=\"well span12\" onclick=\"window.location='#updateProfile/";
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\">\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">ID</span>\n        <input type=\"messageText\" class=\"userID input-mini\" value=\"";
+      + "'\">\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">ID</span>\n        <input type=\"text\" class=\"userID\" value=\"";
     if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" disabled>\n    </div>\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Since</span>\n        <input type=\"messageText\" class=\"dateOfIssue input-small\"\n               value=\"";
+      + "\" disabled>\n    </div>\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Since</span>\n        <input type=\"text\" class=\"dateOfIssue\"\n               value=\"";
     stack1 = helpers['if'].call(depth0, depth0.dateOfIssue, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
     if(stack1 || stack1 === 0) { buffer += stack1; }
-    buffer += "\" disabled>\n    </div>\n    <!--UserName-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">UserName</span>\n        <input type=\"messageText\" class=\"username input-xlarge\" value=\"";
+    buffer += "\" disabled>\n    </div>\n    <!--UserName-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">UserName</span>\n        <input type=\"text\" class=\"username\" value=\"";
     if (stack1 = helpers.username) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.username; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" disabled>\n    </div>\n    <!-- E-mail -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">E-Mail</span>\n        <input type=\"email\" class=\"email input-xlarge\" value=\"";
+      + "\" disabled>\n    </div>\n    <!-- E-mail -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">E-Mail</span>\n        <input type=\"email\" class=\"email\" value=\"";
     if (stack1 = helpers.email) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.email; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" placeholder=\"Email\" required=\"required\" disabled>\n    </div>\n    <!-- First Name -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">FirstName</span>\n        <input type=\"messageText\" class=\"firstName input-xlarge\" value=\"";
+      + "\" placeholder=\"Email\" required=\"required\" disabled>\n    </div>\n    <!-- First Name -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">FirstName</span>\n        <input type=\"text\" class=\"firstName\" value=\"";
     if (stack1 = helpers.firstName) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.firstName; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" placeholder=\"First name\" disabled>\n    </div>\n    <!-- Last Name -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">LastName</span>\n        <input type=\"messageText\" class=\"lastName input-xlarge\" value=\"";
+      + "\" placeholder=\"First name\" disabled>\n    </div>\n    <!-- Last Name -->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">LastName</span>\n        <input type=\"text\" class=\"lastName\" value=\"";
     if (stack1 = helpers.lastName) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.lastName; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" placeholder=\"Last name\" disabled>\n    </div>\n    <!-- Membership Type-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Membership</span>\n        <input type=\"messageText\" class=\"membership input-xlarge\" value=\"";
+      + "\" placeholder=\"Last name\" disabled>\n    </div>\n    <!-- Membership Type-->\n    <div class=\"input-prepend\">\n        <span class=\"add-on\">Membership</span>\n        <input type=\"text\" class=\"membership\" value=\"";
     if (stack1 = helpers.membership) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
     else { stack1 = depth0.membership; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
     buffer += escapeExpression(stack1)
-      + "\" placeholder=\"Membership\" disabled>\n    </div>\n</a>\n<div><br/></div>\n<!--<a class=\"btn\" href=\"#updateProfile/";
-    if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-    else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-    buffer += escapeExpression(stack1)
-      + "\">Edit</a>-->\n<!--<span class=\"firstName\">";
-    if (stack1 = helpers.firstName) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-    else { stack1 = depth0.firstName; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-    buffer += escapeExpression(stack1)
-      + "</span>-->\n<!--<span class=\"lastName\">";
-    if (stack1 = helpers.lastName) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-    else { stack1 = depth0.lastName; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-    buffer += escapeExpression(stack1)
-      + "</span>-->";
+      + "\" placeholder=\"Membership\" disabled>\n    </div>\n</div>\n";
     return buffer;
     });
 });

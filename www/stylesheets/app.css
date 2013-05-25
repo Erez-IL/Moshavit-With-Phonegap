@@ -7191,7 +7191,9 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 }
 input,
-textarea,
 .uneditable-input {
   width: 80%;
+}
+textarea {
+  width: 60%;
 }

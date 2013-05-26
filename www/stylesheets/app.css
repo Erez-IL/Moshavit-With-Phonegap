@@ -7147,14 +7147,16 @@ body {
 .input-prepend input,
 .input-append select,
 .input-prepend select,
+.input-append textarea,
+.input-prepend textarea,
 .input-append .uneditable-input,
 .input-prepend .uneditable-input {
   position: relative;
-  margin-bottom: 0;
+  margin-top: -5px;
   vertical-align: top;
-  -webkit-border-radius: 4px 0 0 4px;
-  -moz-border-radius: 4px 0 0 4px;
-  border-radius: 4px 0 0 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .well {
   min-height: 20px;

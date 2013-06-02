@@ -656,11 +656,15 @@ window.require.register("views/LoginView", function(exports, require, module) {
         },
         success: function(data) {
           console.log("Logged in as " + $("#username").val() + " successfully");
-          return document.getElementById('sessionUsername').innerHTML = $("#username").val();
+          document.getElementById('sessionUsername').innerHTML = $("#username").val();
+          alert("wellcom " + $("#username").val());
+          return document.location.href = "/#";
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log("Failed logging in " + $("#username").val() + ": " + errorThrown);
-          return document.getElementById('sessionUsername').innerHTML = "Guest";
+          document.getElementById('sessionUsername').innerHTML = "Guest";
+          alert("Invalid Password OR Username");
+          return $("#password").val("");
         }
       });
     };
@@ -922,7 +926,7 @@ window.require.register("views/templates/login", function(exports, require, modu
     
 
 
-    return "<div class=\"well span12\" xmlns=\"http://www.w3.org/1999/html\">\n    <div class=\"input-prepend\">\n        <label for=\"username\">שם משתמש</label>\n        <input id=\"username\" type=\"text\" class=\"username\" value=\"\">\n    </div>\n    <div class=\"input-prepend\">\n        <label for=\"password\">סיסמה</label>\n        <input id=\"password\" type=\"password\" class=\"password\" value=\"\">\n    </div>\n    <div style=\"text-align: center\">\n        <button class=\"btn logoutButton\" onclick=\"$.get( '/api/users/logout')\">Logout</button>\n        <button class=\"btn loginButton\">Login</button>\n        <br><br>\n        <a class=\" forgetPasswordButton\">Forgot my password</a><!--todo forgot my password-->\n    </div>\n</div>";
+    return "<div class=\"well span12\" xmlns=\"http://www.w3.org/1999/html\">\n    <div class=\"input-prepend\">\n        <label for=\"username\">שם משתמש</label>\n        <input id=\"username\" type=\"text\" class=\"username\" value=\"\">\n    </div>\n    <div class=\"input-prepend\">\n        <label for=\"password\">סיסמה</label>\n        <input id=\"password\" type=\"password\" class=\"password\" value=\"\">\n    </div>\n    <div style=\"text-align: center\">\n        <button class=\"btn logoutButton\" onclick=\"$.get( '/api/users/logout')\">Logout</button>\n        <button class=\"btn loginButton\">Login</button>\n        <br><b id=\"invalidPassword\"></b><br>\n\n        <a class=\" forgetPasswordButton\">Forgot my password</a><!--todo forgot my password-->\n    </div>\n</div>";
     });
 });
 window.require.register("views/templates/messageBoard", function(exports, require, module) {
